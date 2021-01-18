@@ -1,5 +1,4 @@
 import React from 'react';
-//import { Container } from "react-bootstrap";
 import axios from 'axios';
 import Popup from "reactjs-popup";
 import "./Simulator.css"
@@ -40,9 +39,9 @@ class SimulatorForm extends React.Component {
       posts: [],
 
       errors: {
-        title: "",
-        desc: "",
-        author: "",
+        name: "",
+        type: "",
+        status: "",
       },
     };
   }
@@ -55,7 +54,7 @@ class SimulatorForm extends React.Component {
     let errors = this.state.errors;
 
     switch (name) {
-      case "title":
+      case "name":
         if (!event.target.value.match(/^[a-zA-Z0-9 ]+$/i)) {
           event.target.value = event.target.value.replace(
             /[^A-Za-z0-9 ]/gi,
@@ -72,7 +71,7 @@ class SimulatorForm extends React.Component {
         }
         break;
 
-      case "desc":
+      case "type":
         if (!event.target.value.match(/^[a-zA-Z0-9,! .]+$/i)) {
           event.target.value = event.target.value.replace(
             /[^A-Za-z0-9.,! ]/gi,
@@ -88,7 +87,7 @@ class SimulatorForm extends React.Component {
         }
         break;
 
-      case "author":
+      case "status":
         if (!event.target.value.match(/^[a-zA-Z .]+$/i)) {
           event.target.value = event.target.value.replace(/[^A-Za-z. ]/gi, "");
         } else {

@@ -1,7 +1,5 @@
 import React from 'react';
 import { Container, Jumbotron } from "react-bootstrap";
-//import {Link} from 'react-router-dom';
-//import Popup from "reactjs-popup";
 import axios from 'axios';
 import "./Dashboard.css"
 
@@ -12,19 +10,12 @@ class Dashboard extends React.Component {
         this.inputRef = React.createRef();
     
         this.state = {
-          feedtime: null,
-          food: null,
-          number: null,
-          location: null,
 
           sensordata: [],
 
-          errors: {
-              
-          },       
+          errors: { },       
 
-        };
-    
+        };    
       }
 
       componentDidMount() 
