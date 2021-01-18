@@ -9,11 +9,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## How to install and run on a local system
 To run this project on a local system need to do the following tasks:
 
-Install a stable version of Node.js - a javascript runtime environment
-Install a stable version of Node Package Manager(npm)
-Clone repository from the terminal using command git clone https://github.com/typemaster007/acme_frontend.git
-open terminal or command prompt in the cloned repository folder
-run npm install in terminal
-run npm run start and open localhost:3000 to see the application
+1. Install a stable version of Node.js - a javascript runtime environment
+2. Install a stable version of Node Package Manager(npm)
+3. Clone repository from the terminal using command git clone https://github.com/typemaster007/acme_iot.git
+4. Go to the folder "acme_iot\acme_frontend\" and open the terminal or the command prompt.
+5. run npm install in terminal
+6. run npm run start and open "http://localhost:3000" to see the frontend application
 
 
