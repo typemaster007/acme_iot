@@ -1,4 +1,4 @@
-# acme_iot
+# ACME IOT Technical Project
 ACME Iot Sensor data simulation and visualization app (Frontend + Backend)
 
 This project simulates the creation, deletion, updation of IOT sensor data(Like Thermostats, Smart bulbs, smart home devices etc) and also visualizes the updated live data as a dashboard to the user.
@@ -48,6 +48,7 @@ Helper Steps
 
 ### API Endpoints
 
+```
 1. Get devices present in the cloud (GET HTTP Method)
    URL           :    "http://localhost:5000/getdevices"
    JSON Response :    [
@@ -112,6 +113,7 @@ Helper Steps
    Example       : "http://localhost:5000/deletedevice/10"
    JSON Response : "Device deleted"
 
+```
 
 ### Repository Links:
 "https://github.com/typemaster007/acme_iot.git"
