@@ -208,7 +208,7 @@ class SimulatorForm extends React.Component {
           style={{ display: "flex", justifyContent: "center", padding: "20px" }}
         >
           {" "}
-          RentalVista Device Posts
+          ACME Device Simulator
         </h1>
         <div
           className="container"
@@ -309,17 +309,6 @@ class SimulatorForm extends React.Component {
                             name="status"
                             style={{ width: "300px" }}
                             ></textarea>
-                        </p>
-                        <p style={{ color: "black" }}>
-                            Type:{" "}
-                            <input
-                            className="form-control mb-2"
-                            onChange={this.handleChange}
-                            noValidate
-                            placeholder="Device Type"
-                            name="type"
-                            style={{ width: "300px" }}
-                            />
                         </p>
                         
                         <p style={{ color: "black" }}>
@@ -427,18 +416,8 @@ class SimulatorForm extends React.Component {
                             name="status"
                             style={{ width: "300px" }}
                             ></textarea>
-                        </p>
-                      <p style={{ color: "black" }}>
-                        Type:{" "}
-                        <input
-                          className="form-control mb-2"
-                          onChange={this.handleChange}
-                          noValidate
-                          placeholder="Device Type"
-                          name="type"
-                          style={{ width: "300px" }}
-                        />
                       </p>
+                      
                       
                       <p style={{ color: "black" }}>
                         Industry:{" "}
