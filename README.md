@@ -85,6 +85,7 @@ Helper Steps
                             "type": "Smart Fridge"
                         }
                       ]
+    Status        :  200 OK
 
 2. Create a sensor device (POST HTTP Endpoint) : 
    URL           : "http://localhost:5000/createdevice"
@@ -95,7 +96,7 @@ Helper Steps
                         "industry": "Home appliances"
                     }
    JSON Response : "Device added successfully!"
-   Status        :  200, OK
+   Status        :  200 OK
 
 3. Update a sensor device state (PUT HTTP Endpoint) :
    URL           : "http://localhost:5000/updatedevice/10"
@@ -112,7 +113,8 @@ Helper Steps
    URL           : "http://localhost:5000/deletedevice/<device_id>"
    Example       : "http://localhost:5000/deletedevice/10"
    JSON Response : "Device deleted"
-
+   Status        :  200 OK
+   
 ```
 
 ### Repository Links:
