@@ -97,14 +97,11 @@ class Dashboard extends React.Component {
                                         </p></h5>
                                         <hr />
                                         <p className="card-text">
-                                            Sensor Status: {" "} <b>{sensor.status}</b>
+                                            Sensor State: {" "} <b>{sensor.status.map(status => <p style={{marginBottom:"0.5px"}}>{status.sname} {" : "} {status.value}</p>)}</b>
                                         </p>
                                         <hr />
                                         <p className="card-text">
                                             Device ID: {" "} {sensor.id}
-                                        </p>
-                                        <p className="card-text">
-                                            Device Type: {" "} {sensor.type}
                                         </p>
                                         <p className="card-text">
                                             Industry: {" "} {sensor.industry}

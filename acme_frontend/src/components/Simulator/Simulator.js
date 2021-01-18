@@ -33,7 +33,7 @@ class SimulatorForm extends React.Component {
       id: null,
       industry: null,
       name: null,
-      status: null,
+      status: [],
       type: null,
 
       posts: [],
@@ -88,8 +88,8 @@ class SimulatorForm extends React.Component {
         break;
 
       case "status":
-        if (!event.target.value.match(/^[a-zA-Z .]+$/i)) {
-          event.target.value = event.target.value.replace(/[^A-Za-z. ]/gi, "");
+        if (!event.target.value.match(/^[a-zA-Z0-9:, .]+$/i)) {
+          event.target.value = event.target.value.replace(/[^A-Za-z0-9:,. ]/gi, "");
         } else {
           errors.author =
             value.length < 5 ? "Min 5 alphabetic characters!" : "set";
@@ -110,7 +110,7 @@ class SimulatorForm extends React.Component {
     this.setState({ formValid: validateForm(this.state.errors) });
   };
   handleSubmit = () => {
-    
+    console.log("MEga state", this.state)
     if (
       this.state.name == null ||
       this.state.status == null 
@@ -137,25 +137,30 @@ class SimulatorForm extends React.Component {
   };
 
   handleEdit() {
-
-    var url = "http://localhost:5000/updatedevice/" + this.state.id
+    if (this.state.name == null || this.state.status == null || this.state.id == null) {
+      this.play("Empty Fields. Please Enter all details");
+    }
+    else {
+      var url = "http://localhost:5000/updatedevice/" + this.state.id
     
-    axios
-    .put(url, this.state)
-    .then((response) => {
-        //console.log(response)
-        if (response.data === "Device updated Successfully!") {
-        this.play("Device Updated Successfully");
-        } else if (response.data === "Device not found, check if it is present in the database") {
-        this.play("Device not found, check if it is present in the database!");
-        } else {
-        this.play("Device data not passed, Enter Correct data");
-        //console.log(this.state)
-        }
-    })
-    .catch((error) => {
-        //console.log(error)
-    });
+        axios
+        .put(url, this.state)
+        .then((response) => {
+            //console.log(response)
+            if (response.data === "Device updated Successfully!") {
+            this.play("Device Updated Successfully");
+            } else if (response.data === "Device not found, check if it is present in the database") {
+            this.play("Device not found, check if it is present in the database!");
+            } else {
+            this.play("Device data not passed, Enter Correct data");
+            //console.log(this.state)
+            }
+        })
+        .catch((error) => {
+            //console.log(error)
+        });
+
+      }    
     
   }
 
@@ -294,15 +299,16 @@ class SimulatorForm extends React.Component {
                             />
                         </p>
                         <p style={{ color: "black" }}>
-                            Status:{" "}
-                            <input
+                            Status:
+                            <p>{" Format-  'height:6ft, temp:20 deg'"}</p>
+                            <textarea
                             className="form-control mb-2 "
                             onChange={this.handleChange}
                             noValidate
-                            placeholder="Device Status"
+                            placeholder="Temperature : 20 deg, water level : moderate "
                             name="status"
                             style={{ width: "300px" }}
-                            ></input>
+                            ></textarea>
                         </p>
                         <p style={{ color: "black" }}>
                             Type:{" "}
@@ -412,16 +418,16 @@ class SimulatorForm extends React.Component {
                         />
                       </p>
                       <p style={{ color: "black" }}>
-                        Status:{" "}
-                        <input
-                          className="form-control mb-2 "
-                          onChange={this.handleChange}
-                          noValidate
-                          placeholder="Device Status"
-                          name="status"
-                          style={{ width: "300px" }}
-                        ></input>
-                      </p>
+                            Status:{" Format-  'height:6ft, temp:20 deg'"}
+                            <textarea
+                            className="form-control mb-2 "
+                            onChange={this.handleChange}
+                            noValidate
+                            placeholder="Temperature : 20 deg, water level : moderate "
+                            name="status"
+                            style={{ width: "300px" }}
+                            ></textarea>
+                        </p>
                       <p style={{ color: "black" }}>
                         Type:{" "}
                         <input

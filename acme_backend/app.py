@@ -39,11 +39,26 @@ def getdevices():
 ## CREATE NEW SENSOR DEVICE ##
 @app.route("/createdevice", methods=["POST"])
 def createdevice():
+    lis = []
     get_devicedata = request.get_json()
     name = get_devicedata["name"]
     status = get_devicedata["status"]
     type = get_devicedata["type"]
     industry = get_devicedata["industry"]
+    if(status):
+        if(len(status.split(','))>1 ):
+            status = status.split(',')
+            print("STATUSSS=",status)
+
+        
+            for item in status:
+                dict1 = {}
+                if (len(item.split(':'))>1):
+                    dict1['sname'] = item.split(':')[0]
+                    dict1['value'] = item.split(':')[1]
+                    lis.append(dict1)
+                else:
+                    return jsonify("Incorrect JSon parameters")
     
     if not get_devicedata:
         err = {'ERROR': 'No data passed'}
@@ -63,7 +78,7 @@ def createdevice():
             return jsonify("Device already present, cannot add")
         else:
             database.devices.insert(
-                {'id': int(id), 'name': name, 'status': status, 'type': type, 'industry': industry })
+                {'id': int(id), 'name': name, 'status': lis, 'type': type, 'industry': industry })
             return jsonify("Device added successfully!")
 
 
@@ -92,11 +107,27 @@ def deletedevice(device_id):
 ## UPDATE SENSOR DEVICE ##
 @app.route("/updatedevice/<device_id>", methods=["PUT"])
 def updatedevice(device_id):
+    lis = []
     data = request.get_json()
+    if (not data):
+        return jsonify("No data entered, please try again.")
     name = data["name"]
     status = data["status"]
     type = data["type"]
     industry = data["industry"]
+    if(status):
+        if(len(status.split(','))>1 ):
+            status = status.split(',')
+            print("STATUSSS=",status)
+        
+            for item in status:
+                dict1 = {}
+                if (len(item.split(':'))>1):
+                    dict1['sname'] = item.split(':')[0]
+                    dict1['value'] = item.split(':')[1]
+                    lis.append(dict1)
+                else:
+                    return jsonify("Incorrect JSon parameters")
     
     if not data:
         err = {'ERROR': 'No data passed'}
@@ -106,7 +137,7 @@ def updatedevice(device_id):
         if name:
             if database.devices.find_one({'id': int(device_id)}):
                 database.devices.update_one({'id': int(device_id)}, {
-                    "$set": {'name': name, 'status': status, 'type': type, 'industry': industry }})
+                    "$set": {'name': name, 'status': lis, 'type': type, 'industry': industry }})
                 return jsonify("Device updated Successfully!"),200
             else:
                 return jsonify("Device not found, check if it is present in the database"),404
