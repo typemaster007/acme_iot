@@ -20,6 +20,12 @@ client = pymongo.MongoClient(
     "mongodb+srv://testuser:test123@cluster0.mlfc9.mongodb.net/test?retryWrites=true&w=majority")
 database = client.acme
 
+def is_json(myjson):
+  try:
+    json_object = json.loads(myjson)
+  except ValueError as e:
+    return False
+  return True
 
 @app.route("/", methods=["GET"])
 def index():
@@ -38,27 +44,30 @@ def getdevices():
 
 ## CREATE NEW SENSOR DEVICE ##
 @app.route("/createdevice", methods=["POST"])
-def createdevice():
-    lis = []
+def createdevice():    
     get_devicedata = request.get_json()
     name = get_devicedata["name"]
     status = get_devicedata["status"]
     type = get_devicedata["type"]
     industry = get_devicedata["industry"]
     if(status):
-        if(len(status.split(','))>1 ):
-            status = status.split(',')
-            print("STATUSSS=",status)
+        if isinstance(status, list):
+            lis = status
+        else:
+            lis = []
+            if(len(str(status).split(','))>1 ):
+                status = str(status).split(',')
+                print("STATUSSS=",status)
 
-        
-            for item in status:
-                dict1 = {}
-                if (len(item.split(':'))>1):
-                    dict1['sname'] = item.split(':')[0]
-                    dict1['value'] = item.split(':')[1]
-                    lis.append(dict1)
-                else:
-                    return jsonify("Incorrect JSon parameters")
+            
+                for item in status:
+                    dict1 = {}
+                    if (len(item.split(':'))>1):
+                        dict1['sname'] = item.split(':')[0]
+                        dict1['value'] = item.split(':')[1]
+                        lis.append(dict1)
+                    else:
+                        return jsonify("Incorrect JSon parameters")
     
     if not get_devicedata:
         err = {'ERROR': 'No data passed'}
@@ -107,7 +116,6 @@ def deletedevice(device_id):
 ## UPDATE SENSOR DEVICE ##
 @app.route("/updatedevice/<device_id>", methods=["PUT"])
 def updatedevice(device_id):
-    lis = []
     data = request.get_json()
     if (not data):
         return jsonify("No data entered, please try again.")
@@ -116,18 +124,23 @@ def updatedevice(device_id):
     type = data["type"]
     industry = data["industry"]
     if(status):
-        if(len(status.split(','))>1 ):
-            status = status.split(',')
-            print("STATUSSS=",status)
-        
-            for item in status:
-                dict1 = {}
-                if (len(item.split(':'))>1):
-                    dict1['sname'] = item.split(':')[0]
-                    dict1['value'] = item.split(':')[1]
-                    lis.append(dict1)
-                else:
-                    return jsonify("Incorrect JSon parameters")
+        if isinstance(status, list):
+            lis = status
+        else:
+            lis = []
+            if(len(str(status).split(','))>1 ):
+                status = str(status).split(',')
+                print("STATUSSS=",status)
+
+            
+                for item in status:
+                    dict1 = {}
+                    if (len(item.split(':'))>1):
+                        dict1['sname'] = item.split(':')[0]
+                        dict1['value'] = item.split(':')[1]
+                        lis.append(dict1)
+                    else:
+                        return jsonify("Incorrect JSon parameters")
     
     if not data:
         err = {'ERROR': 'No data passed'}

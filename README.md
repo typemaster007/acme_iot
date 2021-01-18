@@ -32,14 +32,86 @@ Note: The project is designed for a localhost environment so make sure the brows
 
 7. The backend REST server of the project can be accessed in the local browser at "http://localhost:5000/getdevices"
 
----------------------------------------------------
-Troubleshooting
-----------------------------------------------------
-8. You can stop the containers using Ctrl+C or the command docker stop <container_id> in your terminal.
+--------------------------------------------------------------------------------------------------------------------
+Helper Steps
+--------------------------------------------------------------------------------------------------------------------
+8. If you make any changes to the code, you can rebuild the project by running "docker-compose build" and then "docker-compose up"
 
-9. You can check if the services are running currently using the command "docker ps -a"
+9. You can stop the containers using Ctrl+C or the command docker stop <container_id> in your terminal.
 
-10. You can clean the docker services by using the command "docker system prune"
+10. You can check if the services are running currently using the command "docker ps -a"
+
+11. You can clean the docker services by using the command "docker system prune"
+--------------------------------------------------------------------------------------------------------------------
 
 ```
-$ docker-compose up
+
+### API Endpoints
+
+1. Get devices present in the cloud (GET HTTP Method)
+   URL           :    "http://localhost:5000/getdevices"
+   JSON Response :    [
+                        {
+                            "id": 1,
+                            "industry": "Automobile",
+                            "name": "Model X",
+                            "status": [
+                                {
+                                    "sname": "Fluid levels",
+                                    "value": "25 ml"
+                                },
+                                {
+                                    "sname": "Tire Pressure",
+                                    "value": "30 psi"
+                                }
+                            ],
+                            "type": "AI Device"
+                        },
+                        {
+                            "id": 2,
+                            "industry": "Home appliances",
+                            "name": "LG Fridge",
+                            "status": [
+                                {
+                                    "sname": "Ice level",
+                                    "value": "20%"
+                                },
+                                {
+                                    "sname": "Defrost alarm",
+                                    "value": "10 min"
+                                }
+                            ],
+                            "type": "Smart Fridge"
+                        }
+                      ]
+
+2. Create a sensor device (POST HTTP Endpoint) : 
+   URL           : "http://localhost:5000/createdevice"
+   JSON Input    : {
+                        "name": "Nest Mini4",
+                        "status":[{"sname":"Devices","value":"6"},{"sname":"Reminder","value":"2"}],
+                        "type": "Smart device control",
+                        "industry": "Home appliances"
+                    }
+   JSON Response : "Device added successfully!"
+   Status        :  200, OK
+
+3. Update a sensor device state (PUT HTTP Endpoint) :
+   URL           : "http://localhost:5000/updatedevice/10"
+   JSON Input    : {
+                        "name": "Nest Mini5",
+                        "status":[{"sname":"Connections","value":"4"},{"sname":"Lists","value":"5"}],
+                        "type": "Smart device",
+                        "industry": "Home appliances"
+                   }
+   JSON Response : "Device updated Successfully!"
+   Status        :  200, OK
+
+4. Delete a sensor device (DELETE HTTP Endpoint) :
+   URL           : "http://localhost:5000/deletedevice/<device_id>"
+   Example       : "http://localhost:5000/deletedevice/10"
+   JSON Response : "Device deleted"
+
+
+### Repository Links:
+"https://github.com/typemaster007/acme_iot.git"
